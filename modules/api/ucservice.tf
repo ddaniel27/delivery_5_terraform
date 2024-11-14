@@ -2,7 +2,7 @@
 resource "aws_apigatewayv2_integration" "eks_user_core" {
   api_id = aws_apigatewayv2_api.csbe_api.id
 
-  integration_uri    = "arn:aws:elasticloadbalancing:us-east-1:488630032666:listener/net/a7a40b9e4eb9c4755857a9356f821e4f/d13a42bc7515daea/64cf261c20da954c"
+  integration_uri    = "arn:aws:elasticloadbalancing:us-east-1:488630032666:listener/net/ad8b2f0f5a68c443dbbaf019b2b183d9/87d15f5926d17689/8443f05807da8a1f"
   integration_type   = "HTTP_PROXY"
   integration_method = "ANY"
   connection_type    = "VPC_LINK"

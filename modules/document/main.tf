@@ -19,6 +19,7 @@ resource "aws_docdb_cluster" "documentdb" {
   backup_retention_period = 1
   port                   = 27017
   db_cluster_parameter_group_name = aws_docdb_cluster_parameter_group.parameter_group.name
+  skip_final_snapshot    = true
 
   tags = {
     Name = var.cluster_identifier
