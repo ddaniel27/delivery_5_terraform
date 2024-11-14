@@ -14,6 +14,8 @@ module "rds" {
   db_password = var.db_password
   db_name = var.db_name
   subnet_ids = module.subnets.csbe_subnet_ids
+  security_group_id = module.subnets.csbe_test_db_sg_id
+  depends_on = [module.subnets]
 }
 
 module "eks" {

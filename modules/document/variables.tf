@@ -8,10 +8,9 @@ variable "subnet_ids" {
   type        = list(string)
 }
 
-variable "cidr_blocks" {
-  description = "Rango de CIDR para la política de seguridad de DocumentDB"
-  type        = list(string)
-  default     = ["0.0.0.0/0"]
+variable "security_group_id" {
+  description = "ID del grupo de seguridad para el DocumentDB"
+  type        = string
 }
 
 variable "cluster_identifier" {

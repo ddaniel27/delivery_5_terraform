@@ -1,23 +1,3 @@
-resource "aws_security_group" "documentdb_sg" {
-  name        = "documentdb-sg"
-  description = "Security group for DocumentDB cluster"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    from_port   = 27017
-    to_port     = 27017
-    protocol    = "tcp"
-    cidr_blocks = var.cidr_blocks
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
 resource "aws_docdb_subnet_group" "documentdb_subnet_group" {
   name       = "documentdb-subnet-group"
   subnet_ids = var.subnet_ids
@@ -33,7 +13,7 @@ resource "aws_docdb_cluster" "documentdb" {
   master_username        = var.db_username
   master_password        = var.db_password
   db_subnet_group_name   = aws_docdb_subnet_group.documentdb_subnet_group.name
-  vpc_security_group_ids = [aws_security_group.documentdb_sg.id]
+  vpc_security_group_ids = [var.security_group_id]
   preferred_backup_window = "07:00-09:00"
   backup_retention_period = 7
   final_snapshot_identifier = "${var.cluster_identifier}-final-snapshot"
