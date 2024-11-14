@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pc-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pc-app
+  template:
+    metadata:
+      labels:
+        app: pc-app
+    spec:
+      containers:
+      - name: pc-app
+        image: 488630032666.dkr.ecr.us-east-1.amazonaws.com/ecr-isbn-pc:8bec7199a4fefbbf566c563aa75852047f438adb
+        ports:
+        - containerPort: 3000
+        env:
+          - name: MONGO_USER
+            valueFrom:
+              secretKeyRef:
+                name: uc-secret
+                key: MONGO_USER
+          - name: MONGO_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: uc-secret
+                key: MONGO_PASSWORD
+          - name: MONGO_HOST
+            valueFrom:
+              secretKeyRef:
+                name: uc-secret
+                key: MONGO_HOST
+          - name: MONGO_PORT
+            valueFrom:
+              secretKeyRef:
+                name: uc-secret
+                key: MONGO_PORT
+          - name: ENVCHECK
+            valueFrom:
+              secretKeyRef:
+                name: uc-secret
+                key: ENVCHECK
+                optional: true
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pc-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-0a71a3c2f5bea66dd,subnet-062b39c729b7b54d0"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 3000
+  selector:
+    app: pc-app

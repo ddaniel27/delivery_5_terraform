@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uc-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: uc-app
+  template:
+    metadata:
+      labels:
+        app: uc-app
+    spec:
+      containers:
+      - name: uc-app
+        image: 488630032666.dkr.ecr.us-east-1.amazonaws.com/ecr-isbn-uc:d6add89a01c971a59d61688c5e374867917cdb87
+        ports:
+        - containerPort: 3000
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: uc-secret
+                key: POSTGRES_USER
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: uc-secret
+                key: POSTGRES_PASSWORD
+          - name: POSTGRES_HOST
+            valueFrom:
+              secretKeyRef:
+                name: uc-secret
+                key: POSTGRES_HOST
+          - name: POSTGRES_PORT
+            valueFrom:
+              secretKeyRef:
+                name: uc-secret
+                key: POSTGRES_PORT
+          - name: ENVCHECK
+            valueFrom:
+              secretKeyRef:
+                name: uc-secret
+                key: ENVCHECK
+                optional: true
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: uc-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-0a71a3c2f5bea66dd,subnet-062b39c729b7b54d0"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 3000
+  selector:
+    app: uc-app

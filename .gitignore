@@ -1,0 +1,29 @@
+# Terraform state files
+terraform.tfstate
+terraform.tfstate.backup
+
+# Ignore override files
+override.tf
+override.tf.json
+
+# Ignore .terraform directory, which contains plugins and module caches
+.terraform/
+
+# Ignore crash log files
+crash.log
+
+# Ignore variables file (if it contains sensitive data)
+variables.tf
+
+# Ignore local execution plan files
+*.tfplan
+
+# Ignore any IDE or editor-specific files
+.idea/
+.vscode/
+
+# Ignore log files
+*.log
+
+# Ignore changes_to_implement.txt (if it's meant for local changes only)
+changes_to_implement.txt
