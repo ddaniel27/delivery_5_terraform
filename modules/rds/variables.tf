@@ -28,3 +28,9 @@ variable "security_group_id" {
   description = "Security group ID"
   type        = string
 }
+
+variable "instance_class" {
+  description = "Instance class for RDS instance"
+  type        = string
+  default     = "db.t3.micro"
+}
