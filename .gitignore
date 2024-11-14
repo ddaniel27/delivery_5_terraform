@@ -12,9 +12,6 @@ override.tf.json
 # Ignore crash log files
 crash.log
 
-# Ignore variables file (if it contains sensitive data)
-variables.tf
-
 # Ignore local execution plan files
 *.tfplan
 
