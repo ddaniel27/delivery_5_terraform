@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: uc-app
-        image: 488630032666.dkr.ecr.us-east-1.amazonaws.com/ecr-isbn-uc:d6add89a01c971a59d61688c5e374867917cdb87
+        image: 488630032666.dkr.ecr.us-east-1.amazonaws.com/ecr-isbn-uc:54774e39405dfe814b0cb76a668e6fead78c8812
         ports:
         - containerPort: 3000
         env:
@@ -53,7 +53,7 @@ metadata:
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-type: nlb
     service.beta.kubernetes.io/aws-load-balancer-internal: "true"
-    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-0aa2d63b20fc80b3d,subnet-0d9dffe72a67172b4"
+    service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-0cea0cbc2e649c5f6,subnet-03099d6a5ac19209d"
 spec:
   type: LoadBalancer
   ports:
